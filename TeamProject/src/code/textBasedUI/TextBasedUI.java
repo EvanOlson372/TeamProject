@@ -1,16 +1,24 @@
+package code.textBasedUI;
 import java.util.Scanner;
 
-public class Main {
+import code.PosSystem;
+import code.User;
 
-	static User currentUser = null;
-	static PosSystem system;
-	static OrderingWorkflow ordering;
+
+public class TextBasedUI implements Runnable {
+
+	private static User currentUser = null;
+	private static PosSystem system;
+	private static TextBasedOrderingWorkflow ordering;
 	
-	public static void main(String[] args) {
+	public TextBasedUI() {
 		system = new PosSystem();
-		ordering = new OrderingWorkflow(system);
+		ordering = new TextBasedOrderingWorkflow(system);
+	}
+	
+
+	public void run(){
 		Scanner scanner = new Scanner(System.in);
-		
 		if(currentUser == null){
 			System.out.println("+++++++++++++++++++++++++++++++++ POS +++++++++++++++++++++++++++++++++++++++++");
 			System.out.println("++++++++++++++++++++++++++++ Initial Launch +++++++++++++++++++++++++++++++++++");
@@ -51,21 +59,6 @@ public class Main {
 			
 			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
 	}
 

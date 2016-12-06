@@ -1,13 +1,18 @@
+package code.textBasedUI;
 import java.util.Scanner;
 
-public class OrderingWorkflow {
+import code.Customer;
+import code.Order;
+import code.PosSystem;
+
+public class TextBasedOrderingWorkflow {
 	
 	private PosSystem system;
 	private Customer workingCustomer;
 	private Order workingOrder;
 	private Order returnOrder;
 	
-	public OrderingWorkflow(PosSystem system){
+	public TextBasedOrderingWorkflow(PosSystem system){
 		this.system = system;
 		workingCustomer  = null;
 		workingOrder = null;
