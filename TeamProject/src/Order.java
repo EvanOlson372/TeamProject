@@ -6,11 +6,15 @@ public class Order {
 	private Customer customer;
 	private ArrayList<Item> items;
 	private double total;
+	private double ammountPaid;
 	private int totalItems;
+	private boolean paid; 
 	
 	public Order() {
 		items = new ArrayList<Item>();
+		total = 0.0;
 		totalItems = 0;
+		paid = false;
 	}
 	
 	public void addItem(String name, double price){
@@ -18,6 +22,7 @@ public class Order {
 		Item item = new Item(name,price);
 		items.add(item);
 		item.setNumber(totalItems);
+		total = total + price;
 	}
 	public void setOrderNumber(int orderNumber){
 		this.orderNumber = orderNumber;
@@ -25,10 +30,28 @@ public class Order {
 	
 	public void showOrder(){
 		for(int i = 0;i<items.size();i++){
-			System.out.println("Item: " + items.get(i).getNumber() + ", " + items.get(i).getName() + ", Price: " + items.get(i).getPrice() );
-			
+			System.out.println("Item: " + items.get(i).getNumber() + ", " + items.get(i).getName() + ":\t Price: $" + items.get(i).getPrice() );
 		}
-		
+			System.out.println("\t\t\t Total: $"+total);
+			System.out.println("\t\t   With Tax: $"+(total+processTax()));
 	}
+	
+	public double getTotal(){
+		return total;
+	}
+	
+	public double processTax(){
+		double tmp = total;
+		tmp = tmp * .08;
+		return tmp;
+	}
+	
+	public double processPayment(double ammountPaid){
+		this.ammountPaid = ammountPaid;
+		total = total + processTax();
+		double change = total - ammountPaid;
+		return change;
+	}
+		
 	
 }

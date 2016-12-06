@@ -14,10 +14,11 @@ public class OrderingWorkflow {
 		
 	}
 	
-	public Order orderCreationMenu(){
+	public void selectCustomer(){
+		
 		Scanner scanner = new Scanner(System.in);
 		
-		while (workingCustomer == null) {
+		while (true) {
 			System.out.println("++++++++++++++++++++++++++++ Order Creation +++++++++++++++++++++++++++++++++++");
 			System.out.println("+++++++++++++++++++++++++++++++++ MENU ++++++++++++++++++++++++++++++++++++++++");
 			System.out.println("\n                              (1) New Customer");
@@ -36,8 +37,8 @@ public class OrderingWorkflow {
 				String number  = scanner.nextLine();
 				system.addCustomer(name, number);
 				workingCustomer = system.lookupCustomer(number);
-				break;
-			
+				return;
+
 			case "2":
 				System.out.print("Please enter a phone number: ");
 				String number1 = scanner.nextLine();
@@ -46,7 +47,7 @@ public class OrderingWorkflow {
 					workingCustomer = customer;
 					System.out.println("Customer Found!");
 					customer.showCustomer();
-				system.lookupCustomer(number1);
+					return;
 				}
 				else
 					System.out.println("Customer not found...");
@@ -59,8 +60,15 @@ public class OrderingWorkflow {
 			}
 		}
 		
-		while (true){
+	}
+	
+	
+	public void buildOrder() {
 		
+		Scanner scanner = new Scanner(System.in);
+		
+		while (true){
+			
 			System.out.println("++++++++++++++++++++++++++++ Order Creation +++++++++++++++++++++++++++++++++++");
 			System.out.println("+++++++++++++++++++++++++++++++++ MENU ++++++++++++++++++++++++++++++++++++++++");
 			System.out.println("\n                              (1) Add Item");
@@ -100,21 +108,68 @@ public class OrderingWorkflow {
 		
 			case "3":
 				if(workingOrder != null){
-					returnOrder = workingOrder;
-					workingOrder = null;
-					workingCustomer = null;
-					return returnOrder;
+					return;
+					//returnOrder = workingOrder;
+					//workingOrder = null;
+					//workingCustomer = null;
+					//return returnOrder;
 				}
-				else
-					System.out.println("You have not created an order...");
+				else{
+					System.out.println("You have not created an order... Exiting");
+				}
 			default:
 				System.out.println("Invalid Entry.");
 			}
 		
 		}
+		
 	}
 	
 	
-	
+	public void orderOptions(){
+		
+
+		Scanner scanner = new Scanner(System.in);
+		
+		while (true){
+			
+			System.out.println("++++++++++++++++++++++++++++  Order Options +++++++++++++++++++++++++++++++++++");
+			System.out.println("+++++++++++++++++++++++++++++++++ MENU ++++++++++++++++++++++++++++++++++++++++");
+			System.out.println("\n                              (1) Save Order ");
+			System.out.println("\n                              (2) Checkout");
+			System.out.println("\n                              (3) Go back");
+			System.out.println("\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+			workingOrder.showOrder();
+			
+			System.out.print("Please enter your selection here:");
+			String input = scanner.nextLine();
+			
+			switch (input) {
+				
+			case "1":
+				return;
+			
+			case "2":
+				while(true){
+					System.out.print("Ammount due: "+ (workingOrder.getTotal()+workingOrder.processTax()));
+					System.out.print("Enter payment:");
+					String input1 = scanner.nextLine();
+					double tmp = Double.parseDouble(input1);
+						if(tmp<(workingOrder.getTotal()+workingOrder.processTax())){
+							System.out.print("Payment is less than total, please enter a valit payment.");
+						}
+						else{
+							workingOrder.processPayment(tmp);
+							return;
+						}
+				}
+				
+			case "3":
+				System.out.println("Backing up...");
+				buildOrder();
+			}
+		
+		}
+	}
 	
 }

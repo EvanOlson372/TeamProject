@@ -39,7 +39,9 @@ public class Main {
 				system.showUsers();
 				break;
 			case "3":
-				ordering.orderCreationMenu();
+				ordering.selectCustomer();
+				ordering.buildOrder();
+				ordering.orderOptions();
 				break;
 			default:
 				System.out.println("Invalid Entry.");
