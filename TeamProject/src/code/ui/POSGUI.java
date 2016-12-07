@@ -59,7 +59,7 @@ public class POSGUI implements Runnable, Observer {
 		//Creating Options
 			JMenuItem exit = new JMenuItem("Exit");
 			JMenuItem addUser = new JMenuItem("Add User");
-			addUser.addActionListener(new AddUserButtonHandler(system, this));
+			addUser.addActionListener(new AddUserMenuButtonHandler(system, this));
 
 			JMenuItem listUsers = new JMenuItem("List Users");
 			JMenuItem existingCustomer = new JMenuItem("Existing Customer");
