@@ -32,21 +32,24 @@ public class AddUserMenuButtonHandler implements ActionListener {
 	}
 	
 	public void buildUserAddPanel() {
+		//build User add Panel
 		JPanel userAddPanel = new JPanel();
-		ui.setCurrentPanel(userAddPanel);
 		inputBox = new JTextField(25);
 		userAddPanel.add(new JLabel("Please Enter a Username: "));
 		JButton addUser = new JButton("Add User");
 		addUser.addActionListener(new AddUserButtonHandler(system, inputBox, ui));
-		
 		Dimension d = new Dimension(790,230);
 		userAddPanel.setPreferredSize(d);
 		userAddPanel.add(inputBox);
 		userAddPanel.add(addUser);
 		userAddPanel.setBackground(Color.GRAY);
-		ui.getInfoPanel().add(userAddPanel);
-		
-		ui.getInfoPanel().revalidate();
+		//set current and push to stack
+		ui.getPanelStack().push(ui.getCurrentPanel());
+		ui.setCurrentPanel(userAddPanel);
+		//remove and add to main.
+		ui.getMainPanel().removeAll();
+		ui.getMainPanel().add(userAddPanel);
+		ui.getMainPanel().revalidate();
 	/*	System.out.println("Got Here");
 		ui.getInfoPanel().removeAll();
 		System.out.println("Removed Panels");

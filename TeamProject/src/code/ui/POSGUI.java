@@ -25,18 +25,19 @@ public class POSGUI implements Runnable, Observer {
 
 	private static PosSystem system;
 	private static JFrame window;
-	private static JPanel infoPanel;
-	private static JPanel inputPanel;
+	private static JPanel mainPanel;
+	private static JPanel displayPanel;
 	private JPanel currentPanel;
 	private static Stack<JPanel> panelStack;
 	
 	
 	public POSGUI(){
 		system = new PosSystem();
+		panelStack = new Stack<JPanel>();
 	}
 
 	public static void main(String[] args) {
-		panelStack = new Stack<JPanel>();
+		
 		SwingUtilities.invokeLater(new POSGUI());
 	}
 	
@@ -93,38 +94,47 @@ public class POSGUI implements Runnable, Observer {
 	}
 	
 	public void buildMainView(){
+		//Build main JFrame
 		window = new JFrame("POS System");
 		window.setResizable(false);
-		infoPanel = new JPanel();
-		//inputPanel = new JPanel();
-		Dimension d = new Dimension(400,480);
-		infoPanel.setPreferredSize(d);
-		infoPanel.setBackground(Color.BLACK);
-		panelStack.push(infoPanel);
-		//inputPanel.setPreferredSize(d);
-		//inputPanel.setBackground(Color.GRAY);
+		//Build Main and display panel
+		Dimension d = new Dimension(800,480);
+		mainPanel = new JPanel();
+		mainPanel.setPreferredSize(d);
+		mainPanel.setBackground(Color.BLACK);
+		displayPanel = new JPanel();
+		displayPanel.setPreferredSize(d);
+		displayPanel.setBackground(Color.GRAY);
+		//Push Display Panel to stack
+		panelStack.push(displayPanel);
+		currentPanel = displayPanel;
+		//Add Display Panel to the main panel
+		mainPanel.add(displayPanel);
+		//Add menu and main panel to the window
 		window.add(buildMenuBar(), BorderLayout.NORTH);
-		window.add(getInfoPanel(), BorderLayout.CENTER);
-		//window.add(inputPanel, BorderLayout.SOUTH);
+		window.add(mainPanel, BorderLayout.CENTER);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.pack();
 		window.setVisible(true);
 	}
 
-	public static JPanel getInfoPanel() {
-		return infoPanel;
-	}
-	
 	public Stack<JPanel> getPanelStack(){
 		return panelStack;
+	}
+	
+	public void goBackAPanel(){
+		
 	}
 	
 	public void setCurrentPanel(JPanel currentPanel){
 		this.currentPanel = currentPanel;
 	}
+	public JPanel getCurrentPanel(){
+		return currentPanel;
+	}
 	
 	public JPanel getMainPanel(){
-		return infoPanel;
+		return mainPanel;
 	}
 	
 

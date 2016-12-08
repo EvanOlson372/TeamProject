@@ -3,6 +3,8 @@ package code.ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JPanel;
+
 public class GoBackButtonHandler implements ActionListener {
 
 	private POSGUI ui;
@@ -13,16 +15,17 @@ public class GoBackButtonHandler implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent paramActionEvent) {
-		System.out.println("Here");
-		ui.setCurrentPanel(ui.getMainPanel());
-		System.out.println("Here1");
-		ui.getMainPanel().removeAll();
-		System.out.println("Here2");
-		ui.getMainPanel().add(ui.getMainPanel());
-		System.out.println("Here3");
-		ui.getMainPanel().revalidate();
-		System.out.println("Here4");
-
+		
+		if(ui.getPanelStack().size() > 1){
+			JPanel temp = ui.getPanelStack().pop();
+			System.out.println(temp);
+			ui.setCurrentPanel(temp);
+			System.out.println(ui.getCurrentPanel());
+			ui.getMainPanel().removeAll();
+			ui.getMainPanel().add(ui.getCurrentPanel());
+			ui.getMainPanel().revalidate();
+			ui.getMainPanel().repaint();
+		}
 	}
 
 }

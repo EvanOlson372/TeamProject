@@ -25,16 +25,21 @@ public class AddUserButtonHandler implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		//system.addUser(inputBox.getText());
+		//add user
 		system.addUser(inputBox.getText());
-		ui.getInfoPanel().removeAll();
+		//build new panel
 		JPanel postUserAddPanel = new JPanel();
 		Dimension d = new Dimension(790,230);
 		postUserAddPanel.setPreferredSize(d);
 		JLabel Output = new JLabel("User "+ inputBox.getText()+ " added with an ID of " +system.getlatestUserID());
 		postUserAddPanel.add(Output);
-		ui.getInfoPanel().add(postUserAddPanel);
-		ui.getInfoPanel().revalidate();
+		//push current to stack and set new current
+		ui.getPanelStack().push(ui.getCurrentPanel());
+		ui.setCurrentPanel(postUserAddPanel);
+		//remove all and add
+		ui.getMainPanel().removeAll();
+		ui.getMainPanel().add(postUserAddPanel);
+		ui.getMainPanel().revalidate();
 		
 	}
 
