@@ -38,22 +38,12 @@ public class AddUserMenuButtonHandler implements ActionListener {
 		userAddPanel.add(new JLabel("Please Enter a Username: "));
 		JButton addUser = new JButton("Add User");
 		addUser.addActionListener(new AddUserButtonHandler(system, inputBox, ui));
-		Dimension d = new Dimension(790,230);
+		Dimension d = new Dimension(790,470);
 		userAddPanel.setPreferredSize(d);
 		userAddPanel.add(inputBox);
 		userAddPanel.add(addUser);
 		userAddPanel.setBackground(Color.GRAY);
-		//set current and push to stack
-		ui.getPanelStack().push(ui.getCurrentPanel());
-		ui.setCurrentPanel(userAddPanel);
-		//remove and add to main.
-		ui.getMainPanel().removeAll();
-		ui.getMainPanel().add(userAddPanel);
-		ui.getMainPanel().revalidate();
-	/*	System.out.println("Got Here");
-		ui.getInfoPanel().removeAll();
-		System.out.println("Removed Panels");
-	*/	
+		ui.changeDisplay(userAddPanel);
 	}
 	
 	public JTextField getInputBox(){

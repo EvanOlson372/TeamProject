@@ -1,5 +1,6 @@
 package code.ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,17 +30,12 @@ public class AddUserButtonHandler implements ActionListener {
 		system.addUser(inputBox.getText());
 		//build new panel
 		JPanel postUserAddPanel = new JPanel();
-		Dimension d = new Dimension(790,230);
+		Dimension d = new Dimension(790,480);
 		postUserAddPanel.setPreferredSize(d);
-		JLabel Output = new JLabel("User "+ inputBox.getText()+ " added with an ID of " +system.getlatestUserID());
+		postUserAddPanel.setBackground(Color.GRAY);
+		JLabel Output = new JLabel("User "+ inputBox.getText()+ " added with an ID of " +system.getUserIDs());
 		postUserAddPanel.add(Output);
-		//push current to stack and set new current
-		ui.getPanelStack().push(ui.getCurrentPanel());
-		ui.setCurrentPanel(postUserAddPanel);
-		//remove all and add
-		ui.getMainPanel().removeAll();
-		ui.getMainPanel().add(postUserAddPanel);
-		ui.getMainPanel().revalidate();
+		ui.changeDisplay(postUserAddPanel);
 		
 	}
 

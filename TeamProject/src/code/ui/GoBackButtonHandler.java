@@ -18,9 +18,7 @@ public class GoBackButtonHandler implements ActionListener {
 		
 		if(ui.getPanelStack().size() > 1){
 			JPanel temp = ui.getPanelStack().pop();
-			System.out.println(temp);
 			ui.setCurrentPanel(temp);
-			System.out.println(ui.getCurrentPanel());
 			ui.getMainPanel().removeAll();
 			ui.getMainPanel().add(ui.getCurrentPanel());
 			ui.getMainPanel().revalidate();

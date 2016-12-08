@@ -69,6 +69,7 @@ public class POSGUI implements Runnable, Observer {
 			addUser.addActionListener(new AddUserMenuButtonHandler(system, this));
 
 			JMenuItem listUsers = new JMenuItem("List Users");
+			listUsers.addActionListener(new ListUsersButtonHandler(system,this));
 			JMenuItem existingCustomer = new JMenuItem("Existing Customer");
 			JMenuItem newCustomer = new JMenuItem("New Customer");
 		
@@ -95,35 +96,31 @@ public class POSGUI implements Runnable, Observer {
 	
 	public void buildMainView(){
 		//Build main JFrame
-		window = new JFrame("POS System");
-		window.setResizable(false);
+			window = new JFrame("POS System");
+			window.setResizable(false);
 		//Build Main and display panel
-		Dimension d = new Dimension(800,480);
-		mainPanel = new JPanel();
-		mainPanel.setPreferredSize(d);
-		mainPanel.setBackground(Color.BLACK);
-		displayPanel = new JPanel();
-		displayPanel.setPreferredSize(d);
-		displayPanel.setBackground(Color.GRAY);
+			Dimension d = new Dimension(790,460);
+			mainPanel = new JPanel();
+			mainPanel.setPreferredSize(d);
+			mainPanel.setBackground(Color.BLACK);
+			displayPanel = new JPanel();
+			displayPanel.setPreferredSize(d);
+			displayPanel.setBackground(Color.GRAY);
 		//Push Display Panel to stack
-		panelStack.push(displayPanel);
-		currentPanel = displayPanel;
+			panelStack.push(displayPanel);
+			currentPanel = displayPanel;
 		//Add Display Panel to the main panel
-		mainPanel.add(displayPanel);
+			mainPanel.add(displayPanel);
 		//Add menu and main panel to the window
-		window.add(buildMenuBar(), BorderLayout.NORTH);
-		window.add(mainPanel, BorderLayout.CENTER);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.pack();
-		window.setVisible(true);
+			window.add(buildMenuBar(), BorderLayout.NORTH);
+			window.add(mainPanel, BorderLayout.CENTER);
+			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			window.pack();
+			window.setVisible(true);
 	}
 
 	public Stack<JPanel> getPanelStack(){
 		return panelStack;
-	}
-	
-	public void goBackAPanel(){
-		
 	}
 	
 	public void setCurrentPanel(JPanel currentPanel){
@@ -135,6 +132,17 @@ public class POSGUI implements Runnable, Observer {
 	
 	public JPanel getMainPanel(){
 		return mainPanel;
+	}
+	
+	public void changeDisplay(JPanel panel){
+		//push current to stack and set new current
+			panelStack.push(currentPanel);
+			setCurrentPanel(panel);
+		//remove all and add
+			mainPanel.removeAll();
+			mainPanel.add(panel);
+			mainPanel.revalidate();
+			mainPanel.repaint();
 	}
 	
 
