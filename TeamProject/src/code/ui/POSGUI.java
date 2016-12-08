@@ -9,7 +9,9 @@ import java.awt.MenuBar;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Stack;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -25,12 +27,16 @@ public class POSGUI implements Runnable, Observer {
 	private static JFrame window;
 	private static JPanel infoPanel;
 	private static JPanel inputPanel;
+	private JPanel currentPanel;
+	private static Stack<JPanel> panelStack;
+	
 	
 	public POSGUI(){
 		system = new PosSystem();
 	}
 
 	public static void main(String[] args) {
+		panelStack = new Stack<JPanel>();
 		SwingUtilities.invokeLater(new POSGUI());
 	}
 	
@@ -78,7 +84,10 @@ public class POSGUI implements Runnable, Observer {
 			menuBar.add(mainMenu);
 			menuBar.add(userMenu);
 			menuBar.add(orderingMenu);
-	
+			
+			JButton backButton = new JButton("Back");
+			backButton.addActionListener(new GoBackButtonHandler(this));
+			menuBar.add(backButton);
 		
 		return menuBar;
 	}
@@ -87,15 +96,16 @@ public class POSGUI implements Runnable, Observer {
 		window = new JFrame("POS System");
 		window.setResizable(false);
 		infoPanel = new JPanel();
-		inputPanel = new JPanel();
-		Dimension d = new Dimension(800,240);
-		getInfoPanel().setPreferredSize(d);
-		getInfoPanel().setBackground(Color.BLACK);
-		inputPanel.setPreferredSize(d);
-		inputPanel.setBackground(Color.GRAY);
+		//inputPanel = new JPanel();
+		Dimension d = new Dimension(400,480);
+		infoPanel.setPreferredSize(d);
+		infoPanel.setBackground(Color.BLACK);
+		panelStack.push(infoPanel);
+		//inputPanel.setPreferredSize(d);
+		//inputPanel.setBackground(Color.GRAY);
 		window.add(buildMenuBar(), BorderLayout.NORTH);
 		window.add(getInfoPanel(), BorderLayout.CENTER);
-		window.add(inputPanel, BorderLayout.SOUTH);
+		//window.add(inputPanel, BorderLayout.SOUTH);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.pack();
 		window.setVisible(true);
@@ -104,5 +114,18 @@ public class POSGUI implements Runnable, Observer {
 	public static JPanel getInfoPanel() {
 		return infoPanel;
 	}
-		
+	
+	public Stack<JPanel> getPanelStack(){
+		return panelStack;
+	}
+	
+	public void setCurrentPanel(JPanel currentPanel){
+		this.currentPanel = currentPanel;
+	}
+	
+	public JPanel getMainPanel(){
+		return infoPanel;
+	}
+	
+
 }

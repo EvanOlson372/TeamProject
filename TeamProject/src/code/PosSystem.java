@@ -53,4 +53,8 @@ public class PosSystem {
 		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 	}
 	
+	public int getlatestUserID(){
+		return userIDs;
+	}
+	
 }

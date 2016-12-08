@@ -33,11 +33,11 @@ public class AddUserMenuButtonHandler implements ActionListener {
 	
 	public void buildUserAddPanel() {
 		JPanel userAddPanel = new JPanel();
-		
+		ui.setCurrentPanel(userAddPanel);
 		inputBox = new JTextField(25);
 		userAddPanel.add(new JLabel("Please Enter a Username: "));
 		JButton addUser = new JButton("Add User");
-		addUser.addActionListener(new AddUserButtonHandler(system, inputBox));
+		addUser.addActionListener(new AddUserButtonHandler(system, inputBox, ui));
 		
 		Dimension d = new Dimension(790,230);
 		userAddPanel.setPreferredSize(d);
