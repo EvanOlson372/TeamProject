@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -29,11 +30,15 @@ public class AddCustomerButtonHandler implements ActionListener {
 		system.addCustomer(name.getText(), number.getText());;
 		//build new panel
 		JPanel postCustomerAddPanel = new JPanel();
+		JButton beginOrder = new JButton("Begin Order");
+		beginOrder.addActionListener(new BeginOrderButtonHandler(system,ui));
 		Dimension d = new Dimension(790,480);
 		postCustomerAddPanel.setPreferredSize(d);
 		postCustomerAddPanel.setBackground(Color.GRAY);
 		JLabel Output = new JLabel("Customer "+ name.getText()+ " added with an phone number of: " +number.getText());
+		system.setWorkingCustomer(system.lookupCustomer(number.getText()));
 		postCustomerAddPanel.add(Output);
+		postCustomerAddPanel.add(beginOrder);
 		ui.changeDisplay(postCustomerAddPanel);
 		
 	}

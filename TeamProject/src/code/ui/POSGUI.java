@@ -99,14 +99,15 @@ public class POSGUI implements Runnable, Observer {
 	public void buildMainView(){
 		//Build main JFrame
 			window = new JFrame("POS System");
-			window.setResizable(false);
+			//window.setResizable(false);
 		//Build Main and display panel
-			Dimension d = new Dimension(790,460);
+			Dimension d = new Dimension(800,480);
+			Dimension c = new Dimension(750,420);
 			mainPanel = new JPanel();
 			mainPanel.setPreferredSize(d);
 			mainPanel.setBackground(Color.GRAY);
 			displayPanel = new JPanel();
-			displayPanel.setPreferredSize(d);
+			displayPanel.setPreferredSize(c);
 			displayPanel.setBackground(Color.GRAY);
 		//Push Display Panel to stack
 			panelStack.push(displayPanel);
@@ -143,6 +144,7 @@ public class POSGUI implements Runnable, Observer {
 		//remove all and add
 			mainPanel.removeAll();
 			mainPanel.add(panel);
+			window.pack();
 			mainPanel.revalidate();
 			mainPanel.repaint();
 	}

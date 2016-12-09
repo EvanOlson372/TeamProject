@@ -69,5 +69,15 @@ public class PosSystem {
 	public void setWorkingCustomer(Customer workingCustomer){
 		this.workingCustomer = workingCustomer;
 	}
+	public void setWorkingOrder(Order workingOrder){
+		this.workingOrder = workingOrder;
+	}
 	
+	public Customer getWorkingCustomer(){
+		return workingCustomer;
+	}
+	
+	public Order getWorkingOrder(){
+		return workingOrder;
+	}
 }

@@ -47,6 +47,12 @@ public class Order {
 		return tmp;
 	}
 	
+	public double getTotalwithTax(){
+		double tmp;
+		tmp = (processTax() + getTotal());
+		return tmp;
+	}
+	
 	public double processPayment(double ammountPaid){
 		this.ammountPaid = ammountPaid;
 		total = total + processTax();
