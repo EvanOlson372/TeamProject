@@ -10,6 +10,8 @@ public class PosSystem {
 	private int totalOrders;
 	private int customerIDs;
 	private int userIDs;
+	private Customer workingCustomer;
+	private Order workingOrder;
 	
 	public PosSystem(){
 		users = new Hashtable<Integer, User>();
@@ -57,8 +59,15 @@ public class PosSystem {
 		return userIDs;
 	}
 	
+	public int getCustomerIDs(){
+		return customerIDs;
+	}
+	
 	public Hashtable<Integer, User> getUsers(){
 		return users;
+	}
+	public void setWorkingCustomer(Customer workingCustomer){
+		this.workingCustomer = workingCustomer;
 	}
 	
 }

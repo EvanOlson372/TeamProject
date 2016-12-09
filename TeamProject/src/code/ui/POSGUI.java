@@ -71,7 +71,9 @@ public class POSGUI implements Runnable, Observer {
 			JMenuItem listUsers = new JMenuItem("List Users");
 			listUsers.addActionListener(new ListUsersButtonHandler(system,this));
 			JMenuItem existingCustomer = new JMenuItem("Existing Customer");
+			existingCustomer.addActionListener(new ExistingCustomerMenuButtonHandler(system,this));
 			JMenuItem newCustomer = new JMenuItem("New Customer");
+			newCustomer.addActionListener(new AddCustomerMenuButtonHandler(system, this));
 		
 		//Add Items to the menus
 			
@@ -102,7 +104,7 @@ public class POSGUI implements Runnable, Observer {
 			Dimension d = new Dimension(790,460);
 			mainPanel = new JPanel();
 			mainPanel.setPreferredSize(d);
-			mainPanel.setBackground(Color.BLACK);
+			mainPanel.setBackground(Color.GRAY);
 			displayPanel = new JPanel();
 			displayPanel.setPreferredSize(d);
 			displayPanel.setBackground(Color.GRAY);
