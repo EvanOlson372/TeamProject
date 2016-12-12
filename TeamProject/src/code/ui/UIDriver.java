@@ -1,5 +1,6 @@
 package code.ui;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import javax.swing.SwingUtilities;
@@ -12,7 +13,7 @@ public class UIDriver {
 	private static POSGUI posGUI;
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 	
 		

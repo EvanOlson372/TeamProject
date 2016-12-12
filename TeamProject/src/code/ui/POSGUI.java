@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.MenuBar;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Stack;
@@ -31,12 +32,13 @@ public class POSGUI implements Runnable, Observer {
 	private static Stack<JPanel> panelStack;
 	
 	
-	public POSGUI(){
+	public POSGUI() throws IOException{
 		system = new PosSystem();
+		system.loadState();
 		panelStack = new Stack<JPanel>();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		SwingUtilities.invokeLater(new POSGUI());
 	}
@@ -65,6 +67,7 @@ public class POSGUI implements Runnable, Observer {
 			
 		//Creating Options
 			JMenuItem exit = new JMenuItem("Exit");
+			exit.addActionListener(new SaveAndExitButtonHandler(system));
 			JMenuItem addUser = new JMenuItem("Add User");
 			addUser.addActionListener(new AddUserMenuButtonHandler(system, this));
 
@@ -99,10 +102,11 @@ public class POSGUI implements Runnable, Observer {
 	public void buildMainView(){
 		//Build main JFrame
 			window = new JFrame("POS System");
+	
 			//window.setResizable(false);
 		//Build Main and display panel
 			Dimension d = new Dimension(800,480);
-			Dimension c = new Dimension(750,420);
+			Dimension c = new Dimension(800,480);
 			mainPanel = new JPanel();
 			mainPanel.setPreferredSize(d);
 			mainPanel.setBackground(Color.GRAY);
@@ -144,7 +148,7 @@ public class POSGUI implements Runnable, Observer {
 		//remove all and add
 			mainPanel.removeAll();
 			mainPanel.add(panel);
-			window.pack();
+			//window.pack();
 			mainPanel.revalidate();
 			mainPanel.repaint();
 	}

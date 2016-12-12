@@ -3,6 +3,7 @@ package code.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +25,7 @@ public class BeginOrderButtonHandler implements ActionListener {
 	JPanel inputPanel;
 	JPanel leftPanel;
 	JPanel rightPanel;
+	JPanel buttonPanel;
 	JTextField item;
 	JTextField price;
 	PosSystem system;
@@ -52,6 +54,7 @@ public class BeginOrderButtonHandler implements ActionListener {
 		
 		//Main Panel
 			mainOrderingPanel = new JPanel();
+			mainOrderingPanel.setPreferredSize(new Dimension(850, 530));
 		//Left and Right Panels
 			leftPanel = new JPanel();
 			rightPanel = new JPanel();
@@ -61,12 +64,12 @@ public class BeginOrderButtonHandler implements ActionListener {
 			inputPanel = new JPanel();
 		
 		//Set Dimensions 	
-			leftPanel.setPreferredSize(new Dimension(400,480));
-			rightPanel.setPreferredSize(new Dimension(400,480));
-			inputPanel.setPreferredSize(new Dimension(400,100));
+			leftPanel.setPreferredSize(new Dimension(400,460));
+			rightPanel.setPreferredSize(new Dimension(400,460));
+			inputPanel.setPreferredSize(new Dimension(380,120));
 			itemListPanel.setPreferredSize(new Dimension(400,470));
 			itemListPanel.setLayout(new BoxLayout(itemListPanel, BoxLayout.Y_AXIS));
-			totalPanel.setPreferredSize(new Dimension(400,230));
+			totalPanel.setPreferredSize(new Dimension(400,280));
 			totalPanel.setLayout(new BoxLayout(totalPanel, BoxLayout.Y_AXIS));
 		//Set Background colors
 			inputPanel.setBackground(Color.GRAY);
@@ -79,6 +82,10 @@ public class BeginOrderButtonHandler implements ActionListener {
 			rightPanel.add(totalPanel, BorderLayout.NORTH);
 			rightPanel.add(inputPanel, BorderLayout.SOUTH);
 			leftPanel.add(itemListPanel);
+		//Create Button Panel
+			buttonPanel = new JPanel();
+			buttonPanel.setPreferredSize(new Dimension(400,40));
+			buttonPanel.setLayout(new BorderLayout());
 		//Add input Boxes
 			
 			JLabel inputItem = new JLabel("Item: ");
@@ -86,13 +93,23 @@ public class BeginOrderButtonHandler implements ActionListener {
 			JLabel inputPrice = new JLabel("Price: ");
 			JTextField price = new JTextField(15);
 			JButton addItem = new JButton("Add Item");
+			JButton checkout = new JButton("Checkout");
+			checkout.addActionListener(new CheckoutButtonHandler(system, ui));
 			addItem.addActionListener(new AddItem(system, itemListPanel, totalPanel, item, price));
+			buttonPanel.add(addItem, BorderLayout.WEST);
+			buttonPanel.add(checkout, BorderLayout.EAST);
 			inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
 			inputPanel.add(inputItem);
 			inputPanel.add(item);
 			inputPanel.add(inputPrice);
 			inputPanel.add(price);
-			inputPanel.add(addItem);
+			inputPanel.add(buttonPanel);
+			
+			
+			//inputPanel.add(checkout);
+			//inputPanel.add(addItem);
+			
+			
 			
 			//change display
 		ui.changeDisplay(mainOrderingPanel);

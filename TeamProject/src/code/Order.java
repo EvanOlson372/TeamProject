@@ -56,8 +56,18 @@ public class Order {
 	public double processPayment(double ammountPaid){
 		this.ammountPaid = ammountPaid;
 		total = total + processTax();
-		double change = total - ammountPaid;
+		double change = ammountPaid - total;
 		return change;
+	}
+	
+	public void loadTotal(String total){
+		this.total = Double.parseDouble(total);
+	}
+	public void loadNumberOfItems(String totalItems){
+		this.totalItems = Integer.parseInt(totalItems);
+	}
+	public ArrayList<Item> getItemList(){
+		return items;
 	}
 		
 	
