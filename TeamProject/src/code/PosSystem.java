@@ -114,7 +114,7 @@ public class PosSystem {
 				writer.append(tmpCustomer.getPhoneNumber());
 				writer.append("\n");
 			}
-				writer.append("\n\n");
+				writer.append("\n");
 			
 			
 		//Save Orders
@@ -146,7 +146,7 @@ public class PosSystem {
 				writer.append(Integer.toString(key));
 				writer.append(",");
 				writer.append(tmpUser.getUsername());
-				writer.append("\n\n");
+				writer.append("\n");
 			
 			}
 			
@@ -171,10 +171,15 @@ public class PosSystem {
 			//load Customers
 			
 			while((line = br.readLine()) != null){
+				System.out.println(line.length());
 				String[] customer = line.split(csvSplitBy);
-				if(customer.length == 0)
+				
+				if(line.length() != 0){	
+					addCustomer(customer[1], customer[2]);
+				}
+				else{
 					break;
-				addCustomer(customer[1], customer[2]);
+				}
 			}
 			
 			//Load Orders
@@ -182,29 +187,36 @@ public class PosSystem {
 			while((line = br.readLine()) != null){
 				String[] order = line.split(csvSplitBy);
 				
-				if(order.length == 0)
-					break;
-				Order tmpOrder = new Order();
-				tmpOrder.setOrderNumber(Integer.parseInt(order[0]));
-				tmpOrder.loadTotal(order[1]);
-				int i = 2;
+				if(line.length() != 0){
+					Order tmpOrder = new Order();
+					tmpOrder.setOrderNumber(Integer.parseInt(order[0]));
+					tmpOrder.loadTotal(order[1]);
+					int i = 2;
 				
-				while(true){
-					if(i>=order.length)
-						break;
-					tmpOrder.addItem(order[i], Double.parseDouble(order[i+1]));
-					i+=2;
+					while(true){
+						if(i>=order.length)
+							break;
+						tmpOrder.addItem(order[i], Double.parseDouble(order[i+1]));
+						i+=2;
+					}
+					addOrder(tmpOrder);
 				}
-				addOrder(tmpOrder);
+				else{
+					break;
+				}
 			}
 			
 			//Load User
 			
 			while((line = br.readLine()) != null){
 				String[] user = line.split(csvSplitBy);
-				if(user.length == 0)
-				break;
-				addUser(user[1]);
+				if(line.length() != 0){
+					addUser(user[1]);
+				}
+				else{
+					break;
+				}
+				
 			}
 			
 			
